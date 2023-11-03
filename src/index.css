@@ -12,3 +12,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply h-full overflow-hidden bg-surface-100 text-surface-900;
+  font-family: "IRANYekanMobile", theme("fontFamily.sans");
+}
+
+#root {
+  @apply h-full;
+}
