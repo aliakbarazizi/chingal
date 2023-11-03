@@ -1,10 +1,15 @@
 import type { Config } from "tailwindcss";
 import rtl from "tailwindcss-rtl";
+import forms from "@tailwindcss/forms";
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      boxShadow: {
+        DEFAULT: "24px 24px 96px 0px #0C132C",
+        button: "0px 0px 24px 0px #033699",
+      },
       colors: {
         primary: {
           100: "#021335",
@@ -120,5 +125,5 @@ export default {
       },
     },
   },
-  plugins: [rtl],
+  plugins: [rtl, forms],
 } satisfies Config;
