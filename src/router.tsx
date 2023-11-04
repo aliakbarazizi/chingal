@@ -1,10 +1,10 @@
-import { useLocation, Navigate, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Layout from "./layouts/Layout";
-import { useUser } from "./features/auth";
 import Login from "./pages/Login";
 import EditUser from "./pages/EditUser";
 import Users from "./pages/Users";
 import Dashboard from "./pages/Dashboard";
+import { RequireAuth, RequireGuest } from "./helpers/route";
 
 export const router = createBrowserRouter([
   {
@@ -44,25 +44,3 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-
-function RequireGuest({ children }: { children: JSX.Element }) {
-  const user = useUser();
-  const location = useLocation();
-
-  if (user) {
-    return <Navigate to="/" state={{ from: location }} replace />;
-  }
-
-  return children;
-}
-
-function RequireAuth({ children }: { children: JSX.Element }) {
-  const user = useUser();
-  const location = useLocation();
-
-  if (!user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  return children;
-}
