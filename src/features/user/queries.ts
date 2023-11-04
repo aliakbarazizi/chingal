@@ -16,13 +16,18 @@ export const users = createQueryKeys("users", {
 
 export const useUsers = () => useQuery(users.all);
 
-export const useUserDetail = (userId: string) => useQuery(users.detail(userId));
+export const useUserDetail = (userId?: string) =>
+  useQuery({ ...users.detail(userId || ""), enabled: userId !== undefined });
 
 export const useCreateUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (user: Omit<User, "id">) => {
-      const { data } = await api.post<User>("users", user);
+    mutationFn: async (formData: FormData) => {
+      const { data } = await api.post<User>("users", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return data;
     },
     onSuccess: () => {
@@ -31,29 +36,40 @@ export const useCreateUser = () => {
   });
 };
 
-export const useUpdateUser = () => {
+export const useUpdateUser = (userId: string) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (user: User) => {
-      const { data } = await api.put<User>(`users/${user.id}`, user);
+    mutationFn: async (formData: FormData) => {
+      const { data } = await api.put<User>(`users/${userId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return data;
     },
-    onSuccess: (_response, variables) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(users.all);
-      queryClient.invalidateQueries(users.detail(variables.id));
+      queryClient.invalidateQueries(users.detail(userId));
     },
   });
 };
 
-export const useDeleteUser = () => {
+export const useCreateOrUpdate = (userId?: string) => {
+  const createUser = useCreateUser();
+  const updateUser = useUpdateUser(userId || "");
+
+  return userId ? updateUser : createUser;
+};
+
+export const useDeleteUser = (userId?: string) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (userId: string) => {
+    mutationFn: async () => {
       await api.delete(`users/${userId}`);
     },
-    onSuccess: (_response, variables) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(users.all);
-      queryClient.removeQueries(users.detail(variables));
+      queryClient.removeQueries(users.detail(userId || ""));
     },
   });
 };
