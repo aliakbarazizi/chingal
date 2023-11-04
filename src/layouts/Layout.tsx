@@ -7,21 +7,29 @@ import Home from "../assets/icons/outline/Home";
 import Statistics from "../assets/icons/outline/Statistics";
 import Logout from "../assets/icons/outline/Logout";
 import { useSignout } from "../features/auth";
+import Search from "./Search";
+import { useState } from "react";
+import { SearchContext } from "../context/search";
 
 export default function Layout() {
   const signout = useSignout();
 
+  const [showSearch, setShowSearch] = useState(false);
+
   return (
-    <>
-      <header className="flex h-[148px] items-center justify-between border-b-2 border-surface-300 px-12 py-6">
+    <SearchContext.Provider value={setShowSearch}>
+      <header className="flex h-[148px] items-center border-b-2 border-surface-300 px-12 py-6">
         <img src={logo} />
-        <div className="rounded-[20px] border border-surface-300 bg-gradient-to-r from-surface-100 to-surface-200 to-85% p-1.5 space-s-1">
-          <button className="rounded-2xl p-2.5">
-            <Sun />
-          </button>
-          <button className="rounded-2xl bg-primary-500 p-2.5">
-            <MoonBold />
-          </button>
+        <div className="ms-auto flex h-14 min-w-0 gap-6">
+          {showSearch && <Search />}
+          <div className="flex rounded-[20px] border border-surface-300 bg-gradient-to-r from-surface-100 to-surface-200 to-85% p-1.5 space-s-1">
+            <button className="rounded-2xl p-2.5">
+              <Sun />
+            </button>
+            <button className="rounded-2xl bg-primary-500 p-2.5">
+              <MoonBold />
+            </button>
+          </div>
         </div>
       </header>
       <div className="flex min-h-0 flex-1">
@@ -47,10 +55,10 @@ export default function Layout() {
             <span>خروج</span>
           </button>
         </aside>
-        <main className="m-12 flex min-w-0 flex-1 overflow-y-auto">
+        <main className="min-w-0 flex-1 overflow-y-auto p-12">
           <Outlet />
         </main>
       </div>
-    </>
+    </SearchContext.Provider>
   );
 }
