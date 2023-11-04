@@ -5,25 +5,7 @@ import Section from "../elements/Section";
 import illustration from "../assets/Illustration.png";
 import Statistics from "../assets/icons/outline/Statistics";
 import { Link } from "react-router-dom";
-
-const notifications = [
-  { date: "امروز", unread: true, text: "امکان اضافه کردن کاربان اضافه میشود." },
-  {
-    date: "دیروز",
-    unread: false,
-    text: "امکان اضافه کردن کاربان اضافه میشود.",
-  },
-  {
-    date: "10 روز قبل",
-    unread: false,
-    text: "امکان اضافه کردن کاربان اضافه میشود.",
-  },
-  {
-    date: "5 آذر",
-    unread: false,
-    text: "امکان اضافه کردن کاربان اضافه میشود.",
-  },
-];
+import { useNotifications } from "../features/notifications";
 
 const menu = [
   {
@@ -65,6 +47,8 @@ const menu = [
 ];
 
 export default function Dashboard() {
+  const { data: notifications } = useNotifications();
+
   return (
     <div className="flex h-full gap-8">
       <div className="flex min-w-0 flex-1 flex-col gap-8">
@@ -106,7 +90,7 @@ export default function Dashboard() {
             اعلان‌ها
           </Header>
           <ul className="-mx-10 flex flex-col gap-8 overflow-y-auto px-10">
-            {notifications.map((notification) => (
+            {(notifications || []).map((notification) => (
               <li className="relative">
                 {notification.unread && (
                   <div className="absolute -start-4 top-2 h-1.5 w-1.5 rounded-full bg-red-500" />
