@@ -10,6 +10,7 @@ import { useUser } from "./features/auth";
 import Login from "./pages/Login";
 import EditUser from "./pages/EditUser";
 import Users from "./pages/Users";
+import Dashboard from "./pages/Dashboard";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,7 @@ export const router = createBrowserRouter(
           </RequireAuth>
         }
       >
+        <Route index element={<Dashboard />} />
         <Route
           path="/users"
           handle={{

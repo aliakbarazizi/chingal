@@ -7,6 +7,8 @@ import { useSignin } from "../features/auth";
 import TextInput from "../elements/TextInput";
 import Button from "../elements/Button";
 import PasswordInput from "../elements/PasswordInput";
+import Header from "../elements/Header";
+import Section from "../elements/Section";
 
 const schema = yup
   .object({
@@ -36,17 +38,15 @@ export default function Login() {
   const disabled = !watch("username") || !watch("password");
 
   return (
-    <div className="flex h-full w-full items-center justify-center">
-      <form
-        onSubmit={onSubmit}
-        className="flex w-[540px] flex-col gap-10 rounded-3xl border border-surface-300 bg-surface-100 p-10 shadow"
-      >
+    <form
+      onSubmit={onSubmit}
+      className="flex h-full w-full items-center justify-center"
+    >
+      <Section className="w-[540px]">
         <div className="flex justify-center">
           <img src={logo} />
         </div>
-        <h3 className="rounded-sm border-b-2 border-surface-300 pb-4 text-2xl">
-          ورود به پنل چینگال
-        </h3>
+        <Header>ورود به پنل چینگال</Header>
         <TextInput
           {...register("username")}
           label="نام کاربری"
@@ -64,7 +64,7 @@ export default function Login() {
         >
           ورود به سپهر
         </Button>
-      </form>
-    </div>
+      </Section>
+    </form>
   );
 }

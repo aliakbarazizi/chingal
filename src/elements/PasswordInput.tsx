@@ -1,5 +1,5 @@
 import EyeSlash from "../assets/icons/outline/EyeSlash";
-import Eye from "../assets/icons/outline/eye";
+import Eye from "../assets/icons/outline/Eye";
 import TextInput from "./TextInput";
 import { useState, forwardRef } from "react";
 

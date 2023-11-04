@@ -5,10 +5,12 @@ export default function MenuItem({
   title,
   to,
   icon,
+  activeIcon,
 }: {
   title: string;
   to: string;
   icon: JSX.Element;
+  activeIcon?: JSX.Element;
 }) {
   return (
     <NavLink
@@ -27,8 +29,12 @@ export default function MenuItem({
           : undefined,
       })}
     >
-      {icon}
-      <span>{title}</span>
+      {({ isActive }) => (
+        <>
+          {isActive && activeIcon ? activeIcon : icon}
+          <span>{title}</span>
+        </>
+      )}
     </NavLink>
   );
 }

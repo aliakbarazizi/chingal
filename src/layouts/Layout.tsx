@@ -4,6 +4,7 @@ import MoonBold from "../assets/icons/bold/Moon";
 import Sun from "../assets/icons/outline/Sun";
 import MenuItem from "./MenuItem";
 import Home from "../assets/icons/outline/Home";
+import HomeBold from "../assets/icons/bold/Home";
 import Statistics from "../assets/icons/outline/Statistics";
 import Logout from "../assets/icons/outline/Logout";
 import { useSignout } from "../features/auth";
@@ -36,7 +37,8 @@ export default function Layout() {
         <aside className="flex w-[480px] flex-col gap-3 border-e-2 border-surface-300 p-12">
           <MenuItem
             title="خانه"
-            icon={<Home className="fill-current" />}
+            icon={<Home />}
+            activeIcon={<HomeBold />}
             to="/"
           />
           <MenuItem title="لیست کاربران" icon={<Statistics />} to="/users" />

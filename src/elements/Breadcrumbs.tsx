@@ -24,7 +24,7 @@ export default function Breadcrumbs() {
           )}
         >
           <ArrowLeft1 />
-          <h2>{item}</h2>
+          <span>{item}</span>
         </div>
       ))}
     </div>
