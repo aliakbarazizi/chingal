@@ -29,7 +29,7 @@ export default function Search() {
 
   return (
     <TextInput
-      className="w-[512px] !border-surface-300 bg-gradient-to-r from-surface-100 to-surface-200 to-85% ps-12 placeholder-surface-500"
+      className="!w-[512px] !border-surface-300 bg-gradient-to-r from-surface-100 to-surface-200 to-85% ps-12 placeholder-surface-500"
       placeholder="جستجو"
       value={search || ""}
       onChange={(e) => setSearch(e.currentTarget.value)}
