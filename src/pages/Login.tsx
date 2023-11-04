@@ -57,7 +57,11 @@ export default function Login() {
           label="رمز عبور"
           placeholder="رمز عبور خود را وارد کنید"
         />
-        <Button shadow disabled={disabled || signin.isPending}>
+        <Button
+          variant="primary"
+          shadow
+          disabled={disabled || signin.isPending}
+        >
           ورود به سپهر
         </Button>
       </form>

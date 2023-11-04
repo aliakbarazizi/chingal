@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { useId, forwardRef } from "react";
 
 const TextInput = forwardRef<
@@ -5,7 +6,7 @@ const TextInput = forwardRef<
   React.HTMLProps<HTMLInputElement> & {
     label?: string;
   }
->(function TextInput({ label, children, ...rest }, ref) {
+>(function TextInput({ label, children, className, ...rest }, ref) {
   const id = useId();
 
   return (
@@ -20,7 +21,10 @@ const TextInput = forwardRef<
           ref={ref}
           {...rest}
           id={id}
-          className="h-12 w-full rounded-xl border border-surface-400 bg-surface-100 p-4 placeholder-surface-400"
+          className={classNames(
+            "w-full rounded-xl border border-surface-400 bg-surface-100 p-4 placeholder-surface-400 read-only:text-surface-300",
+            className || "h-12",
+          )}
         />
         {children}
       </div>
