@@ -1,4 +1,3 @@
-import Close from "../assets/icons/outline/Close";
 import BreadCrumbs from "../elements/Breadcrumbs";
 import Header from "../elements/Header";
 import Section from "../elements/Section";
@@ -11,10 +10,7 @@ export default function EditUser() {
         <BreadCrumbs />
       </div>
       <Section className="mx-auto w-[540px]">
-        <Header>
-          <Close />
-          ویرایش کاربر
-        </Header>
+        <Header>ویرایش کاربر</Header>
         <UserForm />
       </Section>
     </div>
