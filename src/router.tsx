@@ -1,10 +1,4 @@
-import {
-  Route,
-  useLocation,
-  Navigate,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from "react-router-dom";
+import { useLocation, Navigate, createBrowserRouter } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import { useUser } from "./features/auth";
 import Login from "./pages/Login";
@@ -12,46 +6,44 @@ import EditUser from "./pages/EditUser";
 import Users from "./pages/Users";
 import Dashboard from "./pages/Dashboard";
 
-export const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route>
-      <Route
-        path="/login"
-        element={
-          <RequireGuest>
-            <Login />
-          </RequireGuest>
-        }
-      />
-      <Route
-        path="/"
-        element={
-          <RequireAuth>
-            <Layout />
-          </RequireAuth>
-        }
-      >
-        <Route index element={<Dashboard />} />
-        <Route
-          path="/users"
-          handle={{
-            breadcrumb: () => <span>لیست کاربران</span>,
-          }}
-        >
-          <Route index element={<Users />} />
-          <Route path="create" element={<Users />} />
-          <Route
-            path=":userId"
-            element={<EditUser />}
-            handle={{
+export const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: (
+      <RequireGuest>
+        <Login />
+      </RequireGuest>
+    ),
+  },
+  {
+    path: "/",
+    element: (
+      <RequireAuth>
+        <Layout />
+      </RequireAuth>
+    ),
+    children: [
+      { index: true, element: <Dashboard /> },
+      {
+        path: "/users",
+        handle: {
+          breadcrumb: () => <span>لیست کاربران</span>,
+        },
+        children: [
+          { index: true, element: <Users /> },
+          { path: "create", element: <Users /> },
+          {
+            path: ":userId",
+            element: <EditUser />,
+            handle: {
               breadcrumb: () => <span>ویرایش کاربر</span>,
-            }}
-          />
-        </Route>
-      </Route>
-    </Route>,
-  ),
-);
+            },
+          },
+        ],
+      },
+    ],
+  },
+]);
 
 function RequireGuest({ children }: { children: JSX.Element }) {
   const user = useUser();
